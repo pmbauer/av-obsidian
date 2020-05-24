@@ -1,0 +1,23 @@
+:::SET TESTAMENT Test
+:::SET BOOK 1 Testing
+:::SET TITLE The First Test General of Testing
+:::SET CHAPTER 1
+1 THIS is the first verse of chapter 1
+2 A second verse
+> a footnote
+:::SET CHAPTER 2
+**a non-verse heading**
+1 A second chapter verse
+2 A second chapter second verse
+:::SET BOOK Psalms
+:::SET TITLE Book Of Psalms
+:::SET BOOKCHAPTER Psalm
+:::SET CHAPTER 1
+1 Verse the first
+2 Verse the second
+3 Verse the third
+:::SET BOOK A Book
+:::SET TITLE A Book
+:::SET CHAPTER 1
+1 Not much more to go
+:::SET CHAPTER END
