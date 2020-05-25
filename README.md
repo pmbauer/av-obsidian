@@ -1,5 +1,5 @@
 # av-roam
-Generates a King James ([Authorized Version](https://en.wikipedia.org/wiki/King_James_Version)) text that is formatted for import into a Roam Research database.
+Generates a King James ([Authorized Version](https://en.wikipedia.org/wiki/King_James_Version)) text that is formatted for import into a [Roam Research](https://roamresearch.com/) database.
 
 It uses Roam markdown and [LaTeX](https://en.wikipedia.org/wiki/LaTeX) features to approximate the original print as much as possible.
 
@@ -10,14 +10,14 @@ It uses Roam markdown and [LaTeX](https://en.wikipedia.org/wiki/LaTeX) features 
 1. One chapter per note, one verse per block.
 1. Navigational metadata: *Previous/Next* chapter links and `#<Book>` tags
 1. _italicized_ words to indicate translation additions
-1. _yhwh_ formatted LORD as in the original print
+1. _YHWH_ formatted LORD as in the original print
 1. original print paragraph markings and chapter notes
 1. KJV Cambridge
 1. Table of Contents Page: `KJV`
 
 ## Usage
 
-1. [Download the current release](https://github.com/pmbauer/av-roam/releases/download/5fa7989/av-roam_5fa7989.tar.gz) and extract locally
+1. [Download the current release](https://github.com/pmbauer/av-roam/releases/download/c10dc89/av-roam_c10dc89.tar.gz) and extract locally
 2. Use Roam Research `...` menu and select `Import Files`
 3. Choose chapters you wish to import.
 
