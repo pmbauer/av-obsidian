@@ -15,7 +15,7 @@ BEGIN {
     delete blocks; delete current; delete previous;
     targetdir = "av/"
     system("mkdir " targetdir " 2>/dev/null | true")
-    kjv_toc = targetdir "index.md"
+    kjv_toc = target("index.md")
     OFS=""
 }
 
@@ -80,6 +80,7 @@ match($0, /^:::SET\s+CHAPTER\s+(.*)/, ord) {
         }
         printf "\n\n---\n" >> of
 
+        # chapter and verses
         for (i = 1; i <= length(blocks); i++) {
             print "" >> of
             print blocks[i] >> of
