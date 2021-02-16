@@ -1,6 +1,7 @@
 ---
+title: A Book
 tags: Bible, KJV, AV, Test_Testament, A_Book
-previous: [[av/Psalms]]
+previous: "[[av/Psalms]]"
 ---
 
 [[av/Psalms|<<Psalms]]

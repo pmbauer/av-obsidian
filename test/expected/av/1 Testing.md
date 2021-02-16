@@ -1,6 +1,7 @@
 ---
+title: The First Test General of Testing
 tags: Bible, KJV, AV, Test_Testament, 1_Testing
-next: [[av/Psalms]]
+next: "[[av/Psalms]]"
 ---
 
  [[av/Psalms|Psalms>>]]

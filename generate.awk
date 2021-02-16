@@ -59,12 +59,13 @@ match($0, /^:::SET\s+CHAPTER\s+(.*)/, ord) {
 
         # metadata block
         print "---" >> of
+        print "title: " current["TITLE"] >> of
         print "tags: Bible, KJV, AV, ", testament_tag, ", ", book_tag  >> of
         if (length(previous)!=0) {
-            print "previous: [[", target(previous["BOOK"]), "]]" >> of
+            print "previous: \"[[", target(previous["BOOK"]), "]]\"" >> of
         }
         if (meta["BOOK"]!="END") {
-            print "next: [[", target(meta["BOOK"]), "]]" >> of
+            print "next: \"[[", target(meta["BOOK"]), "]]\"" >> of
         }
         print "---" >> of
 

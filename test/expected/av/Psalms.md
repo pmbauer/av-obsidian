@@ -1,7 +1,8 @@
 ---
+title: Book Of Psalms
 tags: Bible, KJV, AV, Test_Testament, Psalms
-previous: [[av/1 Testing]]
-next: [[av/A Book]]
+previous: "[[av/1 Testing]]"
+next: "[[av/A Book]]"
 ---
 
 [[av/1 Testing|<<1 Testing]] [[av/A Book|A Book>>]]
