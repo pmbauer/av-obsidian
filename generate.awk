@@ -7,9 +7,15 @@ function acopy(a, b) {
     }
 }
 
+function target(s) {
+    return targetdir s
+}
+
 BEGIN {
     delete blocks; delete current; delete previous;
-    kjv_toc = "index.md"
+    targetdir = "av/"
+    system("mkdir " targetdir " 2>/dev/null | true")
+    kjv_toc = targetdir "index.md"
     OFS=""
 }
 
@@ -23,19 +29,19 @@ match($0, /^:::SET\s+(\w+)\s+(.*)/, ord) {
 
 # begin TOC
 match($0, /^:::SET\s+TESTAMENT\s+(.*)/, ord) {
-    print "- [[", ord[1], " Testament]]" >> kjv_toc
+    print "- [[", target(ord[1]), " Testament|" ord[1] " Testament]]" >> kjv_toc
 }
 
 match($0, /^:::SET\s+BOOK\s+(.*)/, ord) {
     if (ord[1] != "END") {
         meta["BOOKCHAPTER"] = ord[1]
-        print "  - [[", ord[1], "]]" >> kjv_toc
+        print "  - [[", target(ord[1]), "|", ord[1] "]]" >> kjv_toc
     }
 }
 
 match($0, /^:::SET\s+CHAPTER\s+(.*)/, ord) {
     chapter = meta["BOOKCHAPTER"] " " ord[1]
-    print "    - [[", meta["BOOK"], "#", chapter, "]]" >> kjv_toc
+    print "    - [[", target(meta["BOOK"]), "#", chapter, "|", chapter, "]]" >> kjv_toc
     # push a chapter heading into blocks
     blocks[length(blocks)+1]="### " chapter
 }
@@ -44,7 +50,7 @@ match($0, /^:::SET\s+CHAPTER\s+(.*)/, ord) {
 # flush signal, print book
 /^:::SET\s+BOOK\s.*/ {
     if (length(blocks) > 0) {
-        of = current["BOOK"] ".md";
+        of = target(current["BOOK"] ".md");
 
         testament_tag = current["TESTAMENT"] " Testament"
         book_tag = current["BOOK"]
@@ -55,21 +61,21 @@ match($0, /^:::SET\s+CHAPTER\s+(.*)/, ord) {
         print "---" >> of
         print "tags: Bible, KJV, AV, ", testament_tag, ", ", book_tag  >> of
         if (length(previous)!=0) {
-            print "previous: [[", previous["BOOK"], "]]" >> of
+            print "previous: [[", target(previous["BOOK"]), "]]" >> of
         }
         if (meta["BOOK"]!="END") {
-            print "next: [[", meta["BOOK"], "]]" >> of
+            print "next: [[", target(meta["BOOK"]), "]]" >> of
         }
         print "---" >> of
 
         # navigation block
         print "" >> of
         if (length(previous)!=0) {
-            printf "%s", "[[" previous["BOOK"] "|<<" previous["BOOK"] "]]" >> of
+            printf "%s", "[[" target(previous["BOOK"]) "|<<" previous["BOOK"] "]]" >> of
         }
         printf " " >> of
         if (meta["BOOK"]!="END") {
-            printf "%s", "[[" meta["BOOK"] "|" meta["BOOK"] ">>]]" >> of
+            printf "%s", "[[" target(meta["BOOK"]) "|" meta["BOOK"] ">>]]" >> of
         }
         printf "\n\n---\n" >> of
 

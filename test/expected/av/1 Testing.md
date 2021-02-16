@@ -1,9 +1,9 @@
 ---
 tags: Bible, KJV, AV, Test_Testament, 1_Testing
-next: [[Psalms]]
+next: [[av/Psalms]]
 ---
 
- [[Psalms|Psalms>>]]
+ [[av/Psalms|Psalms>>]]
 
 ---
 

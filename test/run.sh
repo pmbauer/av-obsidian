@@ -3,7 +3,7 @@
 set -euo pipefail
 
 pushd test/output
-rm -f *.md
+rm -rf *
 ../../generate.awk ../fixture.input
 popd
 

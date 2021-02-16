@@ -1,10 +1,10 @@
 ---
 tags: Bible, KJV, AV, Test_Testament, Psalms
-previous: [[1 Testing]]
-next: [[A Book]]
+previous: [[av/1 Testing]]
+next: [[av/A Book]]
 ---
 
-[[1 Testing|<<1 Testing]] [[A Book|A Book>>]]
+[[av/1 Testing|<<1 Testing]] [[av/A Book|A Book>>]]
 
 ---
 

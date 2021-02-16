@@ -11,7 +11,7 @@ release:
 release/*.md: release
 	cd release; ../generate.awk ../av.input
 release/$(ARTIFACT): release/*.md
-	cd release; tar czf $(ARTIFACT) *.md
+	cd release; tar czf $(ARTIFACT) */*.md
 build: release/$(ARTIFACT)
 
 test/output:
