@@ -8,10 +8,10 @@ export
 
 release:
 	mkdir release
-release/*.md: release
+release/av/*.md: release generate.awk av.input
 	cd release; ../generate.awk ../av.input
-release/$(ARTIFACT): release/*.md
-	cd release; tar czf $(ARTIFACT) */*.md
+release/$(ARTIFACT): release/av/*.md
+	cd release; tar czf $(ARTIFACT) av/*.md
 build: release/$(ARTIFACT)
 
 test/output:
