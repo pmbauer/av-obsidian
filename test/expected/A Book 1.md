@@ -1,3 +1,0 @@
-- Previous:: [[Psalm 1]]
-- Tags:: #Bible #KJV #[[A Book]]
-- 1 Not much more to go

@@ -1,6 +1,0 @@
-- Previous:: [[1 Testing 2]]
-- Next:: [[A Book 1]]
-- Tags:: #Bible #KJV #[[Psalms]]
-- 1 Verse the first
-- 2 Verse the second
-- 3 Verse the third

@@ -1,6 +1,0 @@
-- Previous:: [[1 Testing 1]]
-- Next:: [[Psalm 1]]
-- Tags:: #Bible #KJV #[[1 Testing]]
-- **a non-verse heading**
-- 1 A second chapter verse
-- 2 A second chapter second verse

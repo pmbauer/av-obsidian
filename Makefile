@@ -1,4 +1,4 @@
-NAME              ?= av-roam
+NAME              ?= av-obsidian
 VERSION           ?= $(shell git rev-parse --short HEAD)
 ARTIFACT          ?= $(NAME)_$(VERSION).tar.gz
 export
@@ -20,4 +20,4 @@ test: test/output
 	test/run.sh
 
 clean:
-	rm -f release/* test/output/*
+	rm -rf release/* test/output/*

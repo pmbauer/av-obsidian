@@ -1,5 +1,0 @@
-- Next:: [[1 Testing 2]]
-- Tags:: #Bible #KJV #[[1 Testing]]
-- 1 THIS is the first verse of chapter 1
-- 2 A second verse
-- > a footnote
