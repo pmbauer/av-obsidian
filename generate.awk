@@ -15,6 +15,12 @@ function ensure_exists(path) {
     system("mkdir " path " 2>/dev/null | true")
 }
 
+function print_tags(output) {
+    testament_tag = current["TESTAMENT"] " Testament"
+    gsub(" ", "_", testament_tag)
+    print "tags: Bible, KJV, ", testament_tag >> output
+}
+
 BEGIN {
     delete blocks; delete current; delete previous;
     targetdir = "av/"
@@ -42,10 +48,23 @@ match($0, /^:::SET\s+BOOK\s+(.*)/, ord) {
 }
 
 match($0, /^:::SET\s+CHAPTER\s+(.*)/, ord) {
-    if (ord[1] != "END") {
-        chapter = ord[1]
-        book_and_chapter = meta["BOOKCHAPTER"] " " chapter
-        print "    - [[", target(meta["BOOKCHAPTER"]), "/", ord[1], "|", book_and_chapter, "]]" >> kjv_toc
+    chapter = ord[1]
+    if (chapter != "END") {
+        if (chapter == "1") {
+            book_toc = target(meta["BOOK"]) ".md"
+            # print book index header
+            testament_tag = meta["TESTAMENT"] " Testament"
+            gsub(" ", "_", testament_tag)
+            print "---" >> book_toc
+            print "title: ", meta["TITLE"] >> book_toc
+            print "tags: index, Bible, KJV, ", testament_tag >> book_toc
+            printf "---\n\n" >> book_toc
+            print "## ", meta["TITLE"] >> book_toc
+            printf "\n" >> book_toc
+        }
+        index_line = "- [[" target(meta["BOOKCHAPTER"]) "/" chapter "|" meta["BOOKCHAPTER"] " " chapter "]]"
+        print "    ", index_line >> kjv_toc
+        print index_line >> book_toc
     }
 }
 # end TOC
@@ -56,13 +75,13 @@ match($0, /^:::SET\s+CHAPTER\s+(.*)/, ord) {
         book_path = target(current["BOOKCHAPTER"])
         ensure_exists("'" book_path "'")
         of = book_path "/" current["CHAPTER"] ".md";
-
         testament_tag = current["TESTAMENT"] " Testament"
         gsub(" ", "_", testament_tag)
 
         # metadata block
         print "---" >> of
-        print "tags: Bible, KJV, ", testament_tag  >> of
+        print "aliases: ", current["BOOKCHAPTER"], " " current["CHAPTER"] >> of
+        print "tags: Bible, KJV, ", testament_tag >> of
         printf "---\n\n" >> of
 
         # navigation block
