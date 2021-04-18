@@ -11,11 +11,15 @@ function target(s) {
     return targetdir s
 }
 
+function ensure_exists(path) {
+    system("mkdir " path " 2>/dev/null | true")
+}
+
 BEGIN {
     delete blocks; delete current; delete previous;
     targetdir = "av/"
-    system("mkdir " targetdir " 2>/dev/null | true")
-    kjv_toc = target("index.md")
+    ensure_exists(targetdir)
+    kjv_toc = target("_index.md")
     OFS=""
 }
 
@@ -29,62 +33,58 @@ match($0, /^:::SET\s+(\w+)\s+(.*)/, ord) {
 
 # begin TOC
 match($0, /^:::SET\s+TESTAMENT\s+(.*)/, ord) {
-    print "- [[", target(ord[1]), " Testament|" ord[1] " Testament]]" >> kjv_toc
+    print "- [[" ord[1] " Testament]]" >> kjv_toc
 }
 
 match($0, /^:::SET\s+BOOK\s+(.*)/, ord) {
-    if (ord[1] != "END") {
-        meta["BOOKCHAPTER"] = ord[1]
-        print "  - [[", target(ord[1]), "|", ord[1] "]]" >> kjv_toc
-    }
+    meta["BOOKCHAPTER"] = ord[1]
+    print "  - [[" ord[1] "]]" >> kjv_toc
 }
 
 match($0, /^:::SET\s+CHAPTER\s+(.*)/, ord) {
-    chapter = meta["BOOKCHAPTER"] " " ord[1]
-    print "    - [[", target(meta["BOOK"]), "#", chapter, "|", chapter, "]]" >> kjv_toc
-    # push a chapter heading into blocks
-    blocks[length(blocks)+1]="### " chapter
+    if (ord[1] != "END") {
+        chapter = ord[1]
+        book_and_chapter = meta["BOOKCHAPTER"] " " chapter
+        print "    - [[", target(meta["BOOKCHAPTER"]), "/", ord[1], "|", book_and_chapter, "]]" >> kjv_toc
+    }
 }
 # end TOC
 
-# flush signal, print book
-/^:::SET\s+BOOK\s.*/ {
+# flush signal, print chapter
+/^:::SET\s+CHAPTER\s.*/ {
     if (length(blocks) > 0) {
-        of = target(current["BOOK"] ".md");
+        book_path = target(current["BOOKCHAPTER"])
+        ensure_exists("'" book_path "'")
+        of = book_path "/" current["CHAPTER"] ".md";
 
         testament_tag = current["TESTAMENT"] " Testament"
-        book_tag = current["BOOK"]
         gsub(" ", "_", testament_tag)
-        gsub(" ", "_", book_tag)
 
         # metadata block
         print "---" >> of
-        print "title: " current["TITLE"] >> of
-        print "tags: Bible, KJV, AV, ", testament_tag, ", ", book_tag  >> of
-        if (length(previous)!=0) {
-            print "previous: \"[[", target(previous["BOOK"]), "]]\"" >> of
-        }
-        if (meta["BOOK"]!="END") {
-            print "next: \"[[", target(meta["BOOK"]), "]]\"" >> of
-        }
-        print "---" >> of
+        print "tags: Bible, KJV, ", testament_tag  >> of
+        printf "---\n\n" >> of
 
         # navigation block
-        print "" >> of
         if (length(previous)!=0) {
-            printf "%s", "[[" target(previous["BOOK"]) "|<<" previous["BOOK"] "]]" >> of
+            printf "%s", "[[" target(previous["BOOKCHAPTER"]) "/" previous["CHAPTER"] "|<< " previous["BOOKCHAPTER"] " " previous["CHAPTER"] "]] " >> of
         }
-        printf " " >> of
-        if (meta["BOOK"]!="END") {
-            printf "%s", "[[" target(meta["BOOK"]) "|" meta["BOOK"] ">>]]" >> of
+        if (meta["CHAPTER"]!="END") {
+            if (length(previous)!=0) {
+                printf "| " >> of
+            }
+            printf "%s", "[[" target(meta["BOOKCHAPTER"]) "/" meta["CHAPTER"] "|" meta["BOOKCHAPTER"] " " meta["CHAPTER"] " >>]]" >> of
         }
-        printf "\n\n---\n" >> of
+        printf "\n\n" >> of
+
+        print "### ", current["BOOKCHAPTER"], " " current["CHAPTER"] >> of
 
         # chapter and verses
         for (i = 1; i <= length(blocks); i++) {
             print "" >> of
             print blocks[i] >> of
         }
+
         delete blocks
 
         acopy(current, previous)
@@ -97,7 +97,7 @@ match($0, /^:::SET\s+CHAPTER\s+(.*)/, ord) {
 # push a verse
 match($0, /^([0-9]+) .*/, ord) {
     verse = ord[1]
-    blocks[length(blocks)+1]=$0 " ^" meta["CHAPTER"] "-" verse
+    blocks[length(blocks)+1]=$0 " ^" verse
     next
 }
 
