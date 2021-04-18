@@ -1,3 +1,6 @@
+---
+tags: index, Bible, KJV
+---
 - [[Test Testament]]
   - [[1 Testing]]
     - [[av/1 Testing/1|1 Testing 1]]

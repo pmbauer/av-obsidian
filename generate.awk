@@ -15,18 +15,17 @@ function ensure_exists(path) {
     system("mkdir " path " 2>/dev/null | true")
 }
 
-function print_tags(output) {
-    testament_tag = current["TESTAMENT"] " Testament"
-    gsub(" ", "_", testament_tag)
-    print "tags: Bible, KJV, ", testament_tag >> output
-}
-
 BEGIN {
+    OFS=""
     delete blocks; delete current; delete previous;
     targetdir = "av/"
     ensure_exists(targetdir)
     kjv_toc = target("_index.md")
-    OFS=""
+
+    # print top level TOC front matter
+    print "---" >> kjv_toc
+    print "tags: index, Bible, KJV" >> kjv_toc
+    printf "---\n" >> kjv_toc
 }
 
 # collect :::SET K V state
