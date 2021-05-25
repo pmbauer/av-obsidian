@@ -15,6 +15,11 @@ function ensure_exists(path) {
     system("mkdir " path " 2>/dev/null | true")
 }
 
+function chapter_link(record, alias) {
+    return "[[" target(record["BOOK"]) "/" record["BOOKCHAPTER"] " " record["CHAPTER"] "|" alias "]]"
+}
+
+
 BEGIN {
     OFS=""
     delete blocks; delete current; delete previous;
@@ -61,7 +66,7 @@ match($0, /^:::SET\s+CHAPTER\s+(.*)/, ord) {
             print "## ", meta["TITLE"] >> book_toc
             printf "\n" >> book_toc
         }
-        index_line = "- [[" target(meta["BOOKCHAPTER"]) "/" chapter "|" meta["BOOKCHAPTER"] " " chapter "]]"
+        index_line = "- " chapter_link(meta, meta["BOOKCHAPTER"] " " chapter)
         print "    ", index_line >> kjv_toc
         print index_line >> book_toc
     }
@@ -71,27 +76,26 @@ match($0, /^:::SET\s+CHAPTER\s+(.*)/, ord) {
 # flush signal, print chapter
 /^:::SET\s+CHAPTER\s.*/ {
     if (length(blocks) > 0) {
-        book_path = target(current["BOOKCHAPTER"])
+        book_path = target(current["BOOK"])
         ensure_exists("'" book_path "'")
-        of = book_path "/" current["CHAPTER"] ".md";
+        of = book_path "/" current["BOOKCHAPTER"] " " current["CHAPTER"] ".md";
         testament_tag = current["TESTAMENT"] " Testament"
         gsub(" ", "_", testament_tag)
 
         # metadata block
         print "---" >> of
-        print "aliases: ", current["BOOKCHAPTER"], " " current["CHAPTER"] >> of
         print "tags: Bible, KJV, ", testament_tag >> of
         printf "---\n\n" >> of
 
         # navigation block
         if (length(previous)!=0) {
-            printf "%s", "[[" target(previous["BOOKCHAPTER"]) "/" previous["CHAPTER"] "|<< " previous["BOOKCHAPTER"] " " previous["CHAPTER"] "]] " >> of
+            printf "%s ", chapter_link(previous, "<< " previous["BOOKCHAPTER"] " " previous["CHAPTER"]) >> of
         }
         if (meta["CHAPTER"]!="END") {
             if (length(previous)!=0) {
                 printf "| " >> of
             }
-            printf "%s", "[[" target(meta["BOOKCHAPTER"]) "/" meta["CHAPTER"] "|" meta["BOOKCHAPTER"] " " meta["CHAPTER"] " >>]]" >> of
+            printf "%s", chapter_link(meta, meta["BOOKCHAPTER"] " " meta["CHAPTER"] " >>") >> of
         }
         printf "\n\n" >> of
 

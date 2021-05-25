@@ -5,4 +5,4 @@ tags: index, Bible, KJV, Test_Testament
 
 ## A Book
 
-- [[av/A Book/1|A Book 1]]
+- [[av/A Book/A Book 1|A Book 1]]

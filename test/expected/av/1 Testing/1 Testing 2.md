@@ -1,9 +1,8 @@
 ---
-aliases: 1 Testing 2
 tags: Bible, KJV, Test_Testament
 ---
 
-[[av/1 Testing/1|<< 1 Testing 1]] | [[av/Psalm/1|Psalm 1 >>]]
+[[av/1 Testing/1 Testing 1|<< 1 Testing 1]] | [[av/Psalms/Psalm 1|Psalm 1 >>]]
 
 ### 1 Testing 2
 
