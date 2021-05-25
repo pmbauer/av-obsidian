@@ -19,6 +19,10 @@ function chapter_link(record, alias) {
     return "[[" target(record["BOOK"]) "/" record["BOOKCHAPTER"] " " record["CHAPTER"] "|" alias "]]"
 }
 
+function book_link(record) {
+    return "[[" target(record["BOOK"]) "|" record["BOOK"] "]]"
+}
+
 
 BEGIN {
     OFS=""
@@ -48,7 +52,7 @@ match($0, /^:::SET\s+TESTAMENT\s+(.*)/, ord) {
 
 match($0, /^:::SET\s+BOOK\s+(.*)/, ord) {
     meta["BOOKCHAPTER"] = ord[1]
-    print "  - [[" ord[1] "]]" >> kjv_toc
+    print "  - " book_link(meta) >> kjv_toc
 }
 
 match($0, /^:::SET\s+CHAPTER\s+(.*)/, ord) {
@@ -91,11 +95,9 @@ match($0, /^:::SET\s+CHAPTER\s+(.*)/, ord) {
         if (length(previous)!=0) {
             printf "%s ", chapter_link(previous, "<< " previous["BOOKCHAPTER"] " " previous["CHAPTER"]) >> of
         }
+        printf "| %s |", book_link(current) >> of
         if (meta["CHAPTER"]!="END") {
-            if (length(previous)!=0) {
-                printf "| " >> of
-            }
-            printf "%s", chapter_link(meta, meta["BOOKCHAPTER"] " " meta["CHAPTER"] " >>") >> of
+            printf " %s", chapter_link(meta, meta["BOOKCHAPTER"] " " meta["CHAPTER"] " >>") >> of
         }
         printf "\n\n" >> of
 
