@@ -67,6 +67,7 @@ match($0, /^:::SET\s+CHAPTER\s+(.*)/, ord) {
             print "title: ", meta["TITLE"] >> book_toc
             print "tags: index, Bible, KJV, ", testament_tag >> book_toc
             printf "---\n\n" >> book_toc
+            printf "[[av/_index|Index]]\n\n" >> book_toc
             print "## ", meta["TITLE"] >> book_toc
             printf "\n" >> book_toc
         }
