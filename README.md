@@ -38,6 +38,28 @@ It uses Obsidian markdown and [LaTeX](https://en.wikipedia.org/wiki/LaTeX) featu
 ![[1 John 3#1 John 3]]
 ```
 
+### Styling
+The default Obsidian theme (and most themes) create excess whitespace around transcluded verses.  I use the following CSS in a snippet to make notes with transcluded scriptures look nicer.
+
+```css
+.markdown-embed-title { display:none; }
+.markdown-preview-view .markdown-embed-content p:first-child { margin: 0 !important;}
+.markdown-preview-view .markdown-embed-content p:last-child { margin: 0 !important;}
+
+.markdown-preview-view .markdown-embed, .markdown-embed .markdown-preview-view {
+    padding:0px 15px 0px 3px !important;
+    margin:0 !important;
+    max-height: unset !important;
+}
+
+/* the link on the top right corner */
+.markdown-embed-link {
+    top: 3px !important;
+    right: 5px !important;
+    padding:0 !important;
+    margin:0 !important;
+}
+```
 ## Building
 ```bash
 # builds release artifact
