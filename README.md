@@ -20,6 +20,24 @@ It uses Obsidian markdown and [LaTeX](https://en.wikipedia.org/wiki/LaTeX) featu
 1. [Download the current release](https://github.com/pmbauer/av-obsidian/releases/download/4c1c0dc/av-obsidian_4c1c0dc.tar.gz) and extract locally
 2. Copy `av` into your obsidian vault.
 
+```markdown
+### Chapter link
+[[Genesis 1]]
+
+### Verse Link
+[[Genesis 1#^1]]
+
+### Verse Link With Alias
+[[Genesis 1#^4|Genesis 1:4]]
+
+### Verse Transclusion
+![[Malachi 4#^5]]
+![[Malachi 4#^6]]
+
+### Chapter Transclusion
+![[1 John 3#1 John 3]]
+```
+
 ## Building
 ```bash
 # builds release artifact
