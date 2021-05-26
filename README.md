@@ -13,7 +13,7 @@ It uses Obsidian markdown and [LaTeX](https://en.wikipedia.org/wiki/LaTeX) featu
 1. _YHWH_ formatted LORD as in the original print
 1. original print paragraph markings and chapter notes
 1. KJV Cambridge
-1. Table of Contents Page: `KJV`
+1. `_index` and Book index pages
 
 ## Usage
 
