@@ -17,7 +17,7 @@ It uses Obsidian markdown and [LaTeX](https://en.wikipedia.org/wiki/LaTeX) featu
 
 ## Usage
 
-1. [Download the current release](https://github.com/pmbauer/av-roam/releases/download/c10dc89/av-roam_c10dc89.tar.gz) and extract locally
+1. [Download the current release](https://github.com/pmbauer/av-obsidian/releases/download/4c1c0dc/av-obsidian_4c1c0dc.tar.gz) and extract locally
 2. Copy `av` into your obsidian vault.
 
 ## Building
