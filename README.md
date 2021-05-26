@@ -3,7 +3,7 @@ Generates a King James ([Authorized Version](https://en.wikipedia.org/wiki/King_
 
 It uses Obsidian markdown and [LaTeX](https://en.wikipedia.org/wiki/LaTeX) features to approximate the original print as much as possible.
 
-![note italicized words, section headers, and special treatment of YHWH](doc/example.png)
+<img src="doc/example.png" alt="drawing" width="700"/>
 
 ## Features
 
