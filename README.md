@@ -60,6 +60,13 @@ The default Obsidian theme (and most themes) create excess whitespace around tra
     margin:0 !important;
 }
 ```
+#### Normal
+![normal](doc/normal.jpg)
+
+#### Styled
+
+![naked embeds](doc/naked_embeds.jpg)
+
 ## Building
 ```bash
 # builds release artifact
